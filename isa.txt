@@ -1,0 +1,20 @@
+[Rs] - "The memory at Rs"
+
+Base instruction set:
+    ADD		RD, RS	add registers RD+RS, store the result in RD
+    SUB		RD, RS	subtract registers RD-RS, store the result in RD
+    LOAD	RD,[RS]	load 1 byte from memory at address RS into RD
+    STORE	RD,[RS]	store 1 byte from RD into memory at address RS
+    SKIPNZ	RD		if RD!=0, skip the next instruction
+    SKIPZ	RD		if RD==0, skip the next instruction
+    JALR	RD,RS	save PC+1 into RD, jump to RS
+    SLI		RD, IMM	shift the lower four bits of RD into the upper four bits, then load 4-			bit IMM into the lower four bits of RD 
+    HALT			stops the processor
+
+extended instruction set:
+	NAND	RD,RS	computes bitwise nand ~(RD&RS), result in RD
+	IN		RD		waits for user to enter input and puts it in RD
+	OUT		RD		prints RD to the console
+	INC		RD		adds one to RD
+	DEC		RD		subtracts one from RD
+	NOP				do nothing

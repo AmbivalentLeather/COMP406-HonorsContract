@@ -1,0 +1,44 @@
+opcode: 00000001, A: 02, B: xx, C: xx, D: xx
+Instruction: 00010101, Rs:   1, Rd:   1
+opcode: 00001100, A: 02, B: xx, C: x0, D: xx
+Instruction: 11001000, Rs:   0, Rd:   2
+opcode: 00000001, A: 00, B: xx, C: x0, D: xx
+Instruction: 00010000, Rs:   0, Rd:   0
+opcode: 00001101, A: 06, B: xx, C: x0, D: xx
+Instruction: 11010010, Rs:   2, Rd:   0
+opcode: 00000001, A: 06, B: xx, C: x0, D: xx
+Instruction: 00011111, Rs:   3, Rd:   3
+opcode: 00000111, A: 06, B: xx, C: x0, D: xx
+Instruction: 01111101, Rs:   1, Rd:   3
+opcode: 00000111, A: 06, B: xx, C: x0, D: xx
+Instruction: 01111110, Rs:   2, Rd:   3
+opcode: 00000001, A: 06, B: xx, C: x0, D: xx
+Instruction: 00010101, Rs:   1, Rd:   1
+opcode: 00000111, A: 06, B: xx, C: x0, D: xx
+Instruction: 01110110, Rs:   2, Rd:   1
+opcode: 00000001, A: 06, B: xx, C: xx, D: xx
+Instruction: 00011010, Rs:   2, Rd:   2
+opcode: 00000111, A: 06, B: xx, C: xx, D: xx
+Instruction: 01111011, Rs:   3, Rd:   2
+opcode: 00001000, A: 06, B: xx, C: xx, D: xx
+Instruction: 10000001, Rs:   1, Rd:   0
+opcode: 00000001, A: 06, B: xx, C: xx, D: xx
+Instruction: 00011111, Rs:   3, Rd:   3
+opcode: 00001110, A: 06, B: xx, C: xx, D: x9
+Instruction: 11101101, Rs:   1, Rd:   3
+opcode: 00000100, A: 06, B: xx, C: xx, D: x9
+Instruction: 01000000, Rs:   0, Rd:   0
+opcode: 00000101, A: 06, B: xx, C: xx, D: 10
+Instruction: 01011111, Rs:   3, Rd:   3
+** VVP Stop(0) **
+** Flushing output streams.
+** Current simulation time is 11046599 ticks.
+[?2004h> ^C[?2004l[?2004h[?2004l
+** Continue **
+** VVP Stop(0) **
+** Flushing output streams.
+** Current simulation time is 11046599 ticks.
+[?2004h> ^C[?2004l
+[?2004h
+[?2004l[?2004h> finish
+[?2004l** Continue **
