@@ -9,11 +9,9 @@ module control_unit(
     reg [7:0] registers [3:0];
     reg [7:0] instruction, Rs, Rd, imm, opcode, temp;
 
-
     reg clk;
     reg [7:0] PC;
     reg [1:0] loop_flag;
-
 
     // For testing purposes only
     initial begin
@@ -25,7 +23,7 @@ module control_unit(
         registers[3] = 0;
 
         // Multiply 2 * 3
-        memory[0] = 16'hff;
+        memory[0] = 'hff;
         memory[1] = 'hfe;
         memory[2] = 'h23;
         memory[3] = 'h15;
@@ -62,28 +60,18 @@ module control_unit(
         instruction = memory[PC];
         Rs = (instruction & 8'b00000011);
         Rd = (instruction & 8'b00001100) >> 2;
-        //temp <= (instruction & 8'b00110011);
         imm = (((instruction & 8'b00110011) >> 2) | (instruction & 8'b00110011)) & 8'b00001111;
         opcode = (instruction & 8'b11110000) >> 4;
 
         if ((opcode & 4'b1100) == 4'b1100) begin
-                registers[Rd] = ((registers[Rd] << 4) & 8'b11110000) | imm;
-                //$display("Rd: %h, Imm: %d", Rd, imm);
-        end // Manually pick out SLI
-        // case (opcode & 4'b1100)
-        //     4'b1100: begin
-        //         temp <= registers[Rd];
-        //         temp <= (temp << 4) & 8'b11110000;
-        //         temp <= temp | imm;
-        //         registers[Rd] <= temp;
-        //         end
-        // endcase
+                registers[Rd] = ((registers[Rd] << 4) & 8'b11110000) | imm; // SLI
+        end
 
         case (opcode)
-            4'b0111: registers[Rd] = registers[Rd] + registers[Rs];
-            4'b0001: registers[Rd] = registers[Rd] - registers[Rs];    // SUB
-            4'b0010: registers[Rd] <= memory[registers[Rs]];    // LOAD
-            4'b0011: memory[registers[Rs]] <= registers[Rd];    // STORE
+            4'b0111: registers[Rd] = registers[Rd] + registers[Rs]; // ADD
+            4'b0001: registers[Rd] = registers[Rd] - registers[Rs]; // SUB
+            4'b0010: registers[Rd] <= memory[registers[Rs]];        // LOAD
+            4'b0011: memory[registers[Rs]] <= registers[Rd];        // STORE
             4'b0100: begin
                 if (Rs == 0 && registers[Rd] == 0) begin
                     PC = PC + 1;
@@ -115,11 +103,9 @@ module control_unit(
             end // HALT, NOP
             default: ;
         endcase
-        $display("pc: %h, mem: %h, instruction: %b, A: %h, B: %h, C: %h, D: %h", PC, memory[PC], instruction, registers[0], registers[1], registers[2], registers[3]);
+        $display("instruction: %b, A: %h, B: %h, C: %h, D: %h", instruction, registers[0], registers[1], registers[2], registers[3]);
+
         PC = PC + 8'd1;
-        // if (PC == 'd11) begin
-        //      $finish;
-        // end
     end
 
 endmodule
