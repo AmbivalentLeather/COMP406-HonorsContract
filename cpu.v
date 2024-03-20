@@ -7,45 +7,57 @@ module control_unit(
 );
     reg [15:0] memory [0:255];
     reg [7:0] registers [3:0];
-    reg [7:0] instruction, Rs, Rd, imm, opcode, temp;
 
     reg clk;
+    reg rst;
     reg [7:0] PC;
     reg [1:0] loop_flag;
+    reg [32:0] count;
+
+    // Code to handle the PC counter on real hardware
+    /*
+    always @(posedge clk or rst) begin
+        count = count + 1;
+        if (count == 49999999)  // This should slow down the clock speed to something managable
+            PC = PC + 1;
+        if (rst)
+            PC = 0;
+    end
+    */
 
     // For testing purposes only
     initial begin
         // If we don't do this the registers
         // need to be set to 0 in the code
-        registers[0] = 0;
-        registers[1] = 0;
-        registers[2] = 0;
-        registers[3] = 0;
+        registers[0] <= 0;
+        registers[1] <= 0;
+        registers[2] <= 0;
+        registers[3] <= 0;
 
         // Multiply 2 * 3
-        memory[0] = 'hff;
-        memory[1] = 'hfe;
-        memory[2] = 'h23;
-        memory[3] = 'h15;
-        memory[4] = 'hc8;
-        memory[5] = 'hcb;
-        memory[6] = 'hcd;
-        memory[7] = 'hcd;
-        memory[8] = 'h49;
-        memory[9] = 'h5f;
-        memory[10] = 'h74;
-        memory[11] = 'hcc;
-        memory[12] = 'hcd;
-        memory[13] = 'h1b;
-        memory[14] = 'hcc;
-        memory[15] = 'hde;
-        memory[16] = 'h5f;
-        memory[17] = 'hff;
-        memory[18] = 'hff;
-        memory[19] = 'h37;
-        memory[20] = 'h01;
+        memory[0] <= 'hff;
+        memory[1] <= 'hfe;
+        memory[2] <= 'h23;
+        memory[3] <= 'h15;
+        memory[4] <= 'hc8;
+        memory[5] <= 'hcb;
+        memory[6] <= 'hcd;
+        memory[7] <= 'hcd;
+        memory[8] <= 'h49;
+        memory[9] <= 'h5f;
+        memory[10] <= 'h74;
+        memory[11] <= 'hcc;
+        memory[12] <= 'hcd;
+        memory[13] <= 'h1b;
+        memory[14] <= 'hcc;
+        memory[15] <= 'hde;
+        memory[16] <= 'h5f;
+        memory[17] <= 'hff;
+        memory[18] <= 'hff;
+        memory[19] <= 'h37;
+        memory[20] <= 'h01;
 
-        memory['hfe] = 'd2;
+        memory['hfe] <= 'd2;
     end
 
     initial begin
@@ -55,7 +67,8 @@ module control_unit(
             #5 clk = ~clk;
     end
 
-    always @(posedge clk) begin
+    always @(posedge clk) begin: processor
+        reg [7:0] instruction, Rs, Rd, imm, opcode, temp;
 
         instruction = memory[PC];
         Rs = (instruction & 8'b00000011);
